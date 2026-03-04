@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>KashKick - Get Paid to Play Games</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0a0a12;
+    --bg-card: rgba(255,255,255,0.04);
+    --bg-card-border: rgba(255,255,255,0.08);
+    --accent: #8B5CF6;
+    --accent-bright: #A78BFA;
+    --accent-glow: rgba(139, 92, 246, 0.3);
+    --green: #34D399;
+    --green-dim: rgba(52, 211, 153, 0.15);
+    --text-primary: #F1F1F4;
+    --text-secondary: #9898A6;
+    --text-dim: #6B6B7B;
+    --gold: #FBBF24;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Background ambient glow */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(139,92,246,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+  }
+
+  /* ── URGENCY BAR ── */
+  .urgency-bar {
+    background: linear-gradient(90deg, var(--accent), #7C3AED);
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 -20px;
+    animation: pulse-bar 2.5s ease-in-out infinite;
+  }
+
+  .urgency-bar svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+  }
+
+  @keyframes pulse-bar {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+  }
+
+  .timer {
+    font-variant-numeric: tabular-nums;
+    font-weight: 800;
+  }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    text-align: center;
+    padding-top: 32px;
+  }
+
+  .app-icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 22px;
+    margin: 0 auto 16px;
+    background: linear-gradient(135deg, #7C3AED, #5B21B6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3), 0 0 0 1px rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .app-icon::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(transparent, rgba(255,255,255,0.08), transparent 30%);
+    animation: icon-shine 4s linear infinite;
+  }
+
+  @keyframes icon-shine {
+    to { transform: rotate(360deg); }
+  }
+
+  .app-icon-inner {
+    font-size: 38px;
+    z-index: 1;
+  }
+
+  .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-dim);
+    border: 1px solid rgba(52, 211, 153, 0.2);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--green);
+    margin-bottom: 20px;
+  }
+
+  .live-dot {
+    width: 7px;
+    height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .headline {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+  }
+
+  .sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    line-height: 1.4;
+  }
+
+  .sub strong {
+    color: var(--accent-bright);
+    font-weight: 700;
+  }
+
+  /* ── CTA BUTTON ── */
+  .cta-wrap {
+    margin-bottom: 20px;
+  }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--accent), #7C3AED);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    box-shadow: 0 4px 20px var(--accent-glow), 0 0 0 1px rgba(255,255,255,0.08) inset;
+    letter-spacing: 0.2px;
+  }
+
+  .cta-btn:active {
+    transform: scale(0.97);
+  }
+
+  .cta-btn svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s;
+  }
+
+  .cta-btn:hover svg {
+    transform: translateX(3px);
+  }
+
+  /* ── RATING ── */
+  .rating {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 32px;
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+
+  .stars {
+    display: flex;
+    gap: 2px;
+    color: var(--gold);
+    font-size: 14px;
+  }
+
+  .rating-num {
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* ── STEPS ── */
+  .steps-label {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 14px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 14px;
+    padding: 16px;
+    transition: border-color 0.2s;
+  }
+
+  .step:hover {
+    border-color: rgba(139, 92, 246, 0.2);
+  }
+
+  .step-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(139,92,246,0.05));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-icon svg {
+    width: 20px;
+    height: 20px;
+    color: var(--accent-bright);
+  }
+
+  .step-num {
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .step-title {
+    font-size: 14.5px;
+    font-weight: 700;
+  }
+
+  .step-desc {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    margin-top: 1px;
+  }
+
+  /* ── CASHOUT SECTION ── */
+  .cashout {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .cashout-label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+
+  .cashout-label strong {
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+
+  .payment-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .pay-badge {
+    background: var(--bg-card);
+    border: 1px solid var(--bg-card-border);
+    border-radius: 8px;
+    padding: 7px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  /* ── BOTTOM CTA ── */
+  .bottom-cta {
+    margin-top: 8px;
+  }
+
+  .bottom-cta .cta-btn {
+    background: linear-gradient(135deg, #7C3AED, #6D28D9);
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--bg-card-border);
+  }
+
+  .footer p {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.05s; }
+  .fade-up:nth-child(2) { animation-delay: 0.12s; }
+  .fade-up:nth-child(3) { animation-delay: 0.19s; }
+  .fade-up:nth-child(4) { animation-delay: 0.26s; }
+  .fade-up:nth-child(5) { animation-delay: 0.33s; }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .step {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .step:nth-child(1) { animation-delay: 0.4s; }
+  .step:nth-child(2) { animation-delay: 0.5s; }
+  .step:nth-child(3) { animation-delay: 0.6s; }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- Urgency Bar -->
+  <div class="urgency-bar fade-up">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+    </svg>
+    <span>Sign-Up Bonus expires in <span class="timer" id="timer">29:59</span></span>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="app-icon fade-up">
+      <span class="app-icon-inner">🎮</span>
+    </div>
+
+    <div class="live-badge fade-up">
+      <span class="live-dot"></span>
+      <span><strong>12,400+</strong> playing now</span>
+    </div>
+
+    <h1 class="headline fade-up">Get Paid to Play Games</h1>
+    <p class="sub fade-up">Earn up to <strong>$40/hour</strong> playing games you love</p>
+
+    <div class="cta-wrap fade-up">
+      <a href="#" class="cta-btn" id="main-cta">
+        Download Now
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14M12 5l7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+
+    <div class="rating fade-up">
+      <div class="stars">★★★★★</div>
+      <span class="rating-num">4.8</span>
+      <span>·</span>
+      <span>82K+ reviews</span>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="steps-label">How It Works</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+        </svg>
+      </div>
+      <div>
+        <div class="step-num">Step 1</div>
+        <div class="step-title">Download the app</div>
+        <div class="step-desc">Tap below to get started</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+        </svg>
+      </div>
+      <div>
+        <div class="step-num">Step 2</div>
+        <div class="step-title">Sign up & play games</div>
+        <div class="step-desc">Create your account & start earning</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
+        </svg>
+      </div>
+      <div>
+        <div class="step-num">Step 3</div>
+        <div class="step-title">Cash out</div>
+        <div class="step-desc">Instant withdrawals anytime</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Methods -->
+  <div class="cashout">
+    <div class="cashout-label">Cash out via <strong>100+ rewards</strong></div>
+    <div class="payment-methods">
+      <span class="pay-badge">PayPal</span>
+      <span class="pay-badge">Visa</span>
+      <span class="pay-badge">Bitcoin</span>
+      <span class="pay-badge">Amazon</span>
+      <span class="pay-badge">Gift Cards</span>
+    </div>
+  </div>
+
+  <!-- Bottom CTA -->
+  <div class="bottom-cta">
+    <a href="#" class="cta-btn" id="bottom-cta-btn">
+      Start Earning Now
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14M12 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>This is an independent site and is not affiliated with any app store.<br>All trademarks are property of their respective owners.</p>
+  </div>
+
+</div>
+
+<script>
+  // Countdown timer
+  let totalSeconds = 29 * 60 + 59;
+  const timerEl = document.getElementById('timer');
+
+  function updateTimer() {
+    const m = Math.floor(totalSeconds / 60);
+    const s = totalSeconds % 60;
+    timerEl.textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+    if (totalSeconds > 0) {
+      totalSeconds--;
+      setTimeout(updateTimer, 1000);
+    }
+  }
+  updateTimer();
+
+  // CTA click handler — replace '#' with your actual affiliate link
+  const AFFILIATE_LINK = '#'; // ← PUT YOUR APP STORE / AFFILIATE LINK HERE
+
+  document.getElementById('main-cta').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = AFFILIATE_LINK;
+  });
+
+  document.getElementById('bottom-cta-btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    window.location.href = AFFILIATE_LINK;
+  });
+</script>
+
+</body>
+</html>
