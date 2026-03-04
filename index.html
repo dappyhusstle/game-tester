@@ -60,38 +60,6 @@
     padding: 0 20px 40px;
   }
 
-  /* ── URGENCY BAR ── */
-  .urgency-bar {
-    background: linear-gradient(90deg, var(--accent), #7C3AED);
-    padding: 10px 16px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin: 0 -20px;
-    animation: pulse-bar 2.5s ease-in-out infinite;
-  }
-
-  .urgency-bar svg {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-  }
-
-  @keyframes pulse-bar {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-  }
-
-  .timer {
-    font-variant-numeric: tabular-nums;
-    font-weight: 800;
-  }
-
   /* ── HERO SECTION ── */
   .hero {
     text-align: center;
@@ -387,14 +355,6 @@
 
 <div class="page">
 
-  <!-- Urgency Bar -->
-  <div class="urgency-bar fade-up">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-      <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-    </svg>
-    <span>Sign-Up Bonus expires in <span class="timer" id="timer">29:59</span></span>
-  </div>
-
   <!-- Hero -->
   <div class="hero">
     <div class="app-icon fade-up">
@@ -499,21 +459,6 @@
 </div>
 
 <script>
-  // Countdown timer
-  let totalSeconds = 29 * 60 + 59;
-  const timerEl = document.getElementById('timer');
-
-  function updateTimer() {
-    const m = Math.floor(totalSeconds / 60);
-    const s = totalSeconds % 60;
-    timerEl.textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
-    if (totalSeconds > 0) {
-      totalSeconds--;
-      setTimeout(updateTimer, 1000);
-    }
-  }
-  updateTimer();
-
   // CTA click handler — replace '#' with your actual affiliate link
   const AFFILIATE_LINK = '#'; // ← PUT YOUR APP STORE / AFFILIATE LINK HERE
 
